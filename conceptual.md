@@ -4,7 +4,7 @@ Answer the following questions below:
 
 - What are some ways of managing asynchronous code in JavaScript?
 
-Through Async Callbacks, promises and async/await. 
+  Through Async Callbacks, promises and async/await. 
 - What is a Promise?
 A promise is an object in javascript and returns a promise or guarantee that a value will be returned
 - What are the differences between an async function and a regular function?
