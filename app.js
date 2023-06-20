@@ -1,24 +1,27 @@
 const express = require("express");
+const ExpressError = require("./expressError");
 const axios = require("axios");
 const app = express();
 app.use(express.json());
 
-app.post("/", function (req, res, next) {
+app.post("/", async function (req, res, next) {
   try {
-    const results = req.body.developers;
-    const responses = Promise.all(
+    let results = req.body.developers;
+    let responses = await Promise.all(
       results.map(async (d) => {
-        const response = await axios.get(`https://api.github.com/users/${d}`);
-        console.log(response);
-        return response;
+        const urlresponse = await axios.get(
+          `https://api.github.com/users/${d}`
+        );
+        console.log(urlresponse);
+        return urlresponse;
       })
     );
 
-    const out = responses.map((r) => ({ name: r.data.name, bio: r.data.bio }));
+    let out = responses.map((r) => ({ name: r.data.name, bio: r.data.bio }));
 
     return res.send(JSON.stringify(out));
-  } catch {
-    next(err);
+  } catch (e) {
+    next(e);
   }
 });
 
